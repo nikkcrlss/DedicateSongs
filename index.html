@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEDICATE SONG FOR YOU</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="music-player-body">
+        <h2> I DEDICATE THIS SONG TO YOU </h2>
+        <img class="track-image" id="trackImage" src="#" alt="Track Image">
+
+        <h3 id="trackName"></h3>
+        <audio id="audioPlayer" controls>
+            <source src="music/Bawat Daan.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="controls">
+            <button class="prev-button" id="prevButton">&#9665;</button>
+            <button class="play-pause-button" id="playPauseButton">&#9658;</button>
+            <button class="next-button" id="nextButton">&#9655;</button>
+        </div>
+    </div>
+    <script>
+        // Get references to HTML elements
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const nextButton = document.getElementById('nextButton');
+        const prevButton = document.getElementById('prevButton');
+        const trackNameElement = document.getElementById('trackName');// Track name display
+        const trackImageElement = document.getElementById('trackImage'); // Track image
+        // Added track name element
+        // Define the audio files with names
+        const audioFiles = [
+            { name: 'Bawat Daan', src: 'music/Bawat Daan.mp3', image: 'trackimages/Bawat Daan.jpg' },
+            { name: 'The Only Exception', src: 'music/The Only Exception.mp3', image: 'trackimages/The Only Exception.jpg' },
+            { name: 'Medisina', src: 'music/Medisina.mp3', image: 'trackimages/Medisina.jpg' },
+            { name: 'Yellow ', src: 'music/Yellow.mp3', image: 'trackimages/Yellow.jpg' },
+            { name: 'Lover ', src: 'music/Lover.mp3', image: 'trackimages/Lover.jpg' },
+            { name: 'Mundo ', src: 'music/Mundo.mp3', image: 'trackimages/Mundo.jpg' },
+            { name: 'Spark ', src: 'music/Spark.mp3', image: 'trackimages/Spark.jpg' },
+            { name: 'A Love Song ', src: 'music/A love song.mp3', image: 'trackimages/A love song.jpg' },
+            { name: 'Bawat Piyesa ', src: 'music/Bawat piyesa.mp3', image: 'trackimages/Bawat Piyesa.jpg' },
+            { name: "Nothing's Gonna Stop Us Now ", src: "music/Nothing's Gonna Stop Us.mp3", image: "trackimages/Nothing's Gonna Stop Us.jpg" },
+            { name: 'Lumang Kanta ', src: 'music/Lumang kanta.mp3', image: 'trackimages/Lumang Kanta.jpg' },
+            { name: 'Pangako ', src: 'music/Pangako.mp3', image: 'trackimages/Pangako.jpg' },
+            { name: 'Ligaya ', src: 'music/Ligaya.mp3', image: 'trackimages/Ligaya.jpg' },
+            { name: '14 ', src: 'music/14.mp3', image: 'trackimages/14.jpg' },
+            // Add more audio file objects as needed
+        ]
+        // Initialize variables
+        let currentTrack = 0;
+        let isPlaying = false;
+
+        // Function to update the track name
+        function updateTrackName() {
+            trackNameElement.textContent = audioFiles[currentTrack].name;
+            trackImageElement.src = audioFiles[currentTrack].image;
+        }
+
+        // Function to toggle play/pause
+        function togglePlayPause() {
+            if (isPlaying) {
+                audioPlayer.pause();
+                isPlaying = false;
+                playPauseButton.textContent = '\u25BA'; // Play icon
+            } else {
+                audioPlayer.play();
+                isPlaying = true;
+                playPauseButton.textContent = '\u275A\u275A'; // Pause icon
+            }
+        }
+        // Event listener for play/pause button
+        playPauseButton.addEventListener('click', () => {
+            togglePlayPause();
+        });
+        // Event listener for next button
+        nextButton.addEventListener('click', () => {
+            currentTrack = (currentTrack + 1) % audioFiles.length;
+            audioPlayer.src = audioFiles[currentTrack].src;
+            updateTrackName();
+            if (isPlaying) {
+                audioPlayer.play(); // If it was playing before, continue playing the new track.
+            }
+        });
+        // Event listener for previous button
+        prevButton.addEventListener('click', () => {
+            currentTrack = (currentTrack - 1 + audioFiles.length) % audioFiles.length;
+            audioPlayer.src = audioFiles[currentTrack].src;
+            updateTrackName();
+            if (isPlaying) {
+                audioPlayer.play(); // If it was playing before, continue playing the new track.
+            }
+        });
+
+        // Initial track name update
+        updateTrackName();
+    </script>
+
+</body>
+
+</html>
